@@ -16,6 +16,4 @@ out.png
 _*/
 build/
 relatorio/*.pdf
-*.c
-*.h
-*.html
+*.so
