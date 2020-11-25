@@ -34,12 +34,6 @@ double limiariza(const double *restrict buffer, size_t buflen, data_t data, limi
 
 #define UNUSED attribute(unused)
 
-static inline attribute(const)
-double limiar_global(UNUSED const double buf[], UNUSED size_t len, data_t data) {
-    return data.param[0];
-}
-LIMIARIZA(global)
-
 static inline attribute(pure, nonnull)
 double limiar_bernsen(const double vizinhanca[], size_t tam, UNUSED data_t data) {
     struct minmax z = minmax(vizinhanca, tam);
