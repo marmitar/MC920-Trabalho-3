@@ -70,3 +70,9 @@ double limiar_phansalskar(const double vizinhanca[], size_t tam, data_t data) {
     return xy.mu * (1 + p * exp(-q * xy.mu) + k * (xy.sigma / R - 1));
 }
 LIMIARIZA(phansalskar)
+
+static inline attribute(pure, nonnull)
+double limiar_media(const double vizinhanca[], size_t tam, data_t data) {
+    return mean(vizinhanca, tam);
+}
+LIMIARIZA(media)

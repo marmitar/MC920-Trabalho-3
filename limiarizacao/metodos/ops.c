@@ -45,14 +45,14 @@ struct minmax minmax(const double array[], size_t len) {
     return (struct minmax) {.min = min, .max = max};
 }
 
-// static attribute(pure, nonnull)
-// double mean(const double array[], size_t len) {
-//     double sum = 0;
-//     for (size_t i = 0; i < len; i++) {
-//         sum += array[i];
-//     }
-//     return sum / len;
-// }
+static attribute(pure, nonnull)
+double mean(const double array[], size_t len) {
+    double sum = 0;
+    for (size_t i = 0; i < len; i++) {
+        sum += array[i];
+    }
+    return sum / len;
+}
 
 struct avgstd {
     double mu, sigma;
