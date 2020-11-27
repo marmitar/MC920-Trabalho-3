@@ -72,7 +72,7 @@ double limiar_phansalskar(const double vizinhanca[], size_t tam, data_t data) {
 LIMIARIZA(phansalskar)
 
 static inline attribute(pure, nonnull)
-double limiar_contraste(const double vizinhanca[], size_t tam, UNUSED data_t data) {
+double limiar_contraste(const double vizinhanca[], size_t tam, data_t data) {
     size_t centro = (data.tam / 2) * (data.tam + 1);
     double pixel = vizinhanca[centro];
 
@@ -81,12 +81,22 @@ double limiar_contraste(const double vizinhanca[], size_t tam, UNUSED data_t dat
     size_t dist_max = z.max - pixel;
 
     if (dist_min < dist_max) {
-        return -1.0;
+        return 255.0;
     } else {
-        return 256.0;
+        return 0.0;
     }
 }
-LIMIARIZA(contraste)
+extern attribute(pure, nonnull) \
+int limiariza_contraste(const double *restrict buffer, intptr_t buflen, double *restrict retval, const data_t *restrict data) {
+    *retval = limiar_contraste(buffer, buflen, *data);
+    return 1;
+}
+
+static inline attribute(pure, nonnull)
+double limiar_media(const double vizinhanca[], size_t tam, UNUSED data_t data) {
+    return mean(vizinhanca, tam);
+}
+LIMIARIZA(media)
 
 static inline attribute(pure, nonnull)
 double limiar_media(const double vizinhanca[], size_t tam, UNUSED data_t data) {
