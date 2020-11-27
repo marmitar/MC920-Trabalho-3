@@ -42,7 +42,7 @@ class MetodoLocal(Metodo):
 
     def fn(self, tam: int, params: Namespace) -> LowLevelCallable:
         args = []
-        for key, default in self.params:
+        for key, default in self.params.items():
             value = getattr(params, key, None)
             if value is None:
                 args.append(default)
@@ -62,14 +62,14 @@ class MetodoLocal(Metodo):
 
         if self.params:
             params = subparser.add_argument_group('parâmetros')
-        for key, default in self.params:
+        for key, default in self.params.items():
             params.add_argument(f'-{key}', type=float, required=True,
-                                help=f'(default={default})')
+                                help=f'(default = {default})')
         subparser.set_defaults(metodo=self)
 
 
 METODO: Dict[str, Metodo] = {
     'global': MetodoGlobal(),
     'bernsen': MetodoLocal('bernsen', 'Método de Bernsen.'),
-    'niblack': MetodoLocal('niblack', 'Método de Niblack.')
+    'niblack': MetodoLocal('niblack', 'Método de Niblack.', k=0.5)
 }
