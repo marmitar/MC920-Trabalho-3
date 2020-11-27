@@ -49,8 +49,8 @@ def limiariza_fn(nome: str, tam: int, *params: float) -> LowLevelCallable:
     data = UserData(tam, *params)
     ptr = cast(pointer(data), c_void_p)
 
-    sig = f"int limiariza_{nome}(const double *restrict buffer, intptr_t buflen, double *restrict retval, const void *restrict data)"
     fn = getattr(liblimiar, f'limiariza_{nome}')
+    sig = "int (double *, intptr_t, double *, void *)"
     return LowLevelCallable(fn, ptr, sig)
 
 
