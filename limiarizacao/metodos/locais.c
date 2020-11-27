@@ -1,5 +1,6 @@
 #include <stdint.h>
 #include <stddef.h>
+#include <math.h>
 #include "ops.c"
 
 
@@ -37,6 +38,7 @@ double limiariza(const double *restrict buffer, size_t buflen, data_t data, limi
 static inline attribute(pure, nonnull)
 double limiar_bernsen(const double vizinhanca[], size_t tam, UNUSED data_t data) {
     struct minmax z = minmax(vizinhanca, tam);
+
     return (z.min + z.max) / 2;
 }
 LIMIARIZA(bernsen)
@@ -45,6 +47,7 @@ static inline attribute(pure, nonnull)
 double limiar_niblack(const double vizinhanca[], size_t tam, data_t data) {
     struct avgstd xy = avgstd(vizinhanca, tam);
     double k = data.param[0];
+
     return xy.mu + k * xy.sigma;
 }
 LIMIARIZA(niblack)
@@ -53,6 +56,17 @@ static inline attribute(pure, nonnull)
 double limiar_sauvola(const double vizinhanca[], size_t tam, data_t data) {
     struct avgstd xy = avgstd(vizinhanca, tam);
     double k = data.param[0], R = data.param[1];
+
     return xy.mu * (1 + k * (xy.sigma / R - 1));
 }
 LIMIARIZA(sauvola)
+
+static inline attribute(pure, nonnull)
+double limiar_phansalskar(const double vizinhanca[], size_t tam, data_t data) {
+    struct avgstd xy = avgstd(vizinhanca, tam);
+    double k = data.param[0], R = data.param[1];
+    double p = data.param[2], q = data.param[3];
+
+    return xy.mu * (1 + p * exp(-q * xy.mu) + k * (xy.sigma / R - 1));
+}
+LIMIARIZA(phansalskar)
