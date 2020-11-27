@@ -1,5 +1,6 @@
 from ctypes import Structure, CDLL, c_size_t, c_double, c_void_p, cast, pointer
 from pathlib import Path
+from typing import Tuple
 from scipy import LowLevelCallable
 
 
@@ -19,18 +20,22 @@ def compile(source: Path, out: Path) -> None:
     ]
     run([CC, *CFLAGS, *PATH], check=True)
 
+def libname() -> Tuple[Path, Path]:
+    source = Path(__file__).with_suffix('.c')
+    lib = source.parent / f'lib{source.name}'
+    lib = lib.with_suffix('.so')
+    return lib, source
 
-def load(lib: Path) -> CDLL:
+def load() -> CDLL:
+    lib, source = libname()
+
     if not lib.exists():
-        source = lib.with_suffix('.c')
         compile(source, lib)
 
     path = str(lib.absolute())
     return CDLL(path)
 
-
-liblimiar = Path(__file__).with_suffix('.so')
-liblimiar = load(liblimiar)
+liblimiar = load()
 
 
 class UserData(Structure):
