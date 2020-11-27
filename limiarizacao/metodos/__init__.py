@@ -40,7 +40,7 @@ class MetodoLocal(Metodo):
         self.description = description
         self.params = params
 
-    def fn(self, tam: int, params: Namespace) -> LowLevelCallable:
+    def fn(self, params: Namespace) -> LowLevelCallable:
         args = []
         for key, default in self.params.items():
             value = getattr(params, key, None)
@@ -49,10 +49,10 @@ class MetodoLocal(Metodo):
             else:
                 args.append(value)
 
-        return limiariza_fn(self.name, tam//2, *args)
+        return limiariza_fn(self.name, *args)
 
     def limiariza(self, img: Image, params: Namespace) -> Image:
-        fn = self.fn(params.tamanho, params)
+        fn = self.fn(params)
         return generic_filter(img, fn, size=params.tamanho, mode='mirror')
 
     def add_arg_parser(self, parser: AddSubParser) -> None:

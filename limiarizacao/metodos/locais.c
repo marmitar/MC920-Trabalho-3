@@ -1,11 +1,12 @@
 #include <stdint.h>
 #include <stddef.h>
+#include <stdlib.h>
+#include <string.h>
 #include <math.h>
 #include "ops.c"
 
 
 typedef struct data {
-    size_t tam;
     double param[4];
 } data_t;
 
@@ -15,8 +16,7 @@ typedef double limiar_fn(const double vizinhanca[], size_t tam, data_t data);
 
 static inline attribute(pure, nonnull)
 double limiariza(const double *restrict buffer, size_t buflen, data_t data, limiar_fn *limiar) {
-    size_t centro = (data.tam / 2) * (data.tam + 1);
-    double pixel = buffer[centro];
+    double pixel = buffer[buflen / 2];
 
     if (pixel > limiar(buffer, buflen, data)) {
         return 255.0;
@@ -72,9 +72,8 @@ double limiar_phansalskar(const double vizinhanca[], size_t tam, data_t data) {
 LIMIARIZA(phansalskar)
 
 static inline attribute(pure, nonnull)
-double limiar_contraste(const double vizinhanca[], size_t tam, data_t data) {
-    size_t centro = (data.tam / 2) * (data.tam + 1);
-    double pixel = vizinhanca[centro];
+double limiar_contraste(const double vizinhanca[], size_t tam) {
+    double pixel = vizinhanca[tam / 2];
 
     struct minmax z = minmax(vizinhanca, tam);
     size_t dist_min = pixel - z.min;
@@ -87,8 +86,8 @@ double limiar_contraste(const double vizinhanca[], size_t tam, data_t data) {
     }
 }
 extern attribute(pure, nonnull) \
-int limiariza_contraste(const double *restrict buffer, intptr_t buflen, double *restrict retval, const data_t *restrict data) {
-    *retval = limiar_contraste(buffer, buflen, *data);
+int limiariza_contraste(const double *restrict buffer, intptr_t buflen, double *restrict retval, UNUSED const data_t *_data) {
+    *retval = limiar_contraste(buffer, (size_t) buflen);
     return 1;
 }
 
@@ -100,6 +99,8 @@ LIMIARIZA(media)
 
 static inline attribute(pure, nonnull)
 double limiar_mediana(const double vizinhanca[], size_t tam, UNUSED data_t data) {
-    return median(vizinhanca, tam);
+    double *tmp = alloca(tam * sizeof(double));
+    memcpy(tmp, vizinhanca, tam * sizeof(double));
+    return median(tmp, tam);
 }
 LIMIARIZA(mediana)

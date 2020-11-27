@@ -39,20 +39,13 @@ liblimiar = load()
 
 
 class UserData(Structure):
-    _fields_ = [
-        ("tam", c_size_t),
-        ("param", c_double * 4)
-    ]
+    _fields_ = [("param", c_double * 4)]
 
 
-def limiariza_fn(nome: str, tam: int, *params: float) -> LowLevelCallable:
-    data = UserData(tam, *params)
+def limiariza_fn(nome: str, *params: float) -> LowLevelCallable:
+    data = UserData(*params)
     ptr = cast(pointer(data), c_void_p)
 
     fn = getattr(liblimiar, f'limiariza_{nome}')
     sig = "int (double *, intptr_t, double *, void *)"
     return LowLevelCallable(fn, ptr, sig)
-
-
-def limiariza_bernsen(tam: int) -> LowLevelCallable:
-    return limiariza_fn('bernsen', tam)
