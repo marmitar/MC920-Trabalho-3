@@ -28,7 +28,7 @@ class MetodoGlobal(Metodo):
 def tamanho(entrada: str) -> int:
     try:
         tam = int(entrada, base=10)
-        if tam < 0 or tam % 2 != 1:
+        if tam < 3 or tam % 2 != 1:
             raise ValueError()
     except ValueError:
         raise ArgumentTypeError(f'tamanho inválido: {entrada}')
