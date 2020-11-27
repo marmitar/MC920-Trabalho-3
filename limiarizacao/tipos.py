@@ -2,10 +2,11 @@
 Procolos para tipagem estática com ``mypy``.
 """
 from __future__ import annotations
+from argparse import ArgumentParser, Namespace
 from numpy import ndarray, uint8, float32
 from typing import (
     TYPE_CHECKING, overload,
-    Type, Union, Tuple, Protocol
+    Type, Union, Tuple, Protocol, Callable
 )
 
 if TYPE_CHECKING:
@@ -16,8 +17,13 @@ else:
     Literal = Union
 
 
+AddSubParser = Callable[[str, str], ArgumentParser]
+
 class Metodo(Protocol):
-    def limiariza(self, img: Image, tam: int, **params: float) -> Image:
+    def limiariza(self, img: Image, tam: int, params: Namespace) -> Image:
+        ...
+
+    def add_arg_parser(self, parser: AddSubParser) -> None:
         ...
 
 class Image(ndarray): # type: ignore
