@@ -70,5 +70,6 @@ class MetodoLocal(Metodo):
 
 METODO: Dict[str, Metodo] = {
     'global': MetodoGlobal(),
-    'bernsen': MetodoLocal('bernsen', 'Método de Bernsen.')
+    'bernsen': MetodoLocal('bernsen', 'Método de Bernsen.'),
+    'niblack': MetodoLocal('niblack', 'Método de Niblack.')
 }

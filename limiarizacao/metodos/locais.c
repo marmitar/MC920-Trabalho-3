@@ -40,3 +40,11 @@ double limiar_bernsen(const double vizinhanca[], size_t tam, UNUSED data_t data)
     return (z.min + z.max) / 2;
 }
 LIMIARIZA(bernsen)
+
+static inline attribute(pure, nonnull)
+double limiar_niblack(const double vizinhanca[], size_t tam, data_t data) {
+    struct avgstd xy = avgstd(vizinhanca, tam);
+    double k = data.param[0];
+    return xy.mu + k * xy.sigma;
+}
+LIMIARIZA(niblack)

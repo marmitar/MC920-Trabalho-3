@@ -45,17 +45,17 @@ struct minmax minmax(const double array[], size_t len) {
     return (struct minmax) {.min = min, .max = max};
 }
 
-static attribute(pure, nonnull)
-double mean(const double array[], size_t len) {
-    double sum = 0;
-    for (size_t i = 0; i < len; i++) {
-        sum += array[i];
-    }
-    return sum / len;
-}
+// static attribute(pure, nonnull)
+// double mean(const double array[], size_t len) {
+//     double sum = 0;
+//     for (size_t i = 0; i < len; i++) {
+//         sum += array[i];
+//     }
+//     return sum / len;
+// }
 
 struct avgstd {
-    double avg, std;
+    double mu, sigma;
 };
 
 static attribute(pure, nonnull)
@@ -71,5 +71,5 @@ struct avgstd avgstd(const double array[], size_t len) {
     double avgsq = sumsq / len;
     double std = sqrt(avgsq - avg * avg);
 
-    return (struct avgstd) {.avg = avg, .std = std};
+    return (struct avgstd) {.mu = avg, .sigma = std};
 }
