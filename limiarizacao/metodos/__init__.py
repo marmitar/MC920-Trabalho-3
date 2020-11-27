@@ -1,3 +1,4 @@
+from argparse import ArgumentTypeError
 from scipy.ndimage import generic_filter
 from locais import limiariza_fn
 import numpy as np
@@ -21,6 +22,16 @@ class MetodoGlobal(Metodo):
         subparser = parser('global', 'Método Global')
         subparser.add_argument('-T', type=float,
             help='Limiar fixo. Usa a intensidade média da imagem, se não for definido.')
+        subparser.set_defaults(metodo=self)
+
+
+def tamanho(entrada: str) -> int:
+    try:
+        tam = int(entrada, base=10)
+        if tam < 0 or tam % 2 != 1:
+            raise ValueError()
+    except ValueError:
+        raise ArgumentTypeError(f'tamanho inválido: {entrada}')
 
 
 class MetodoLocal(Metodo):
@@ -38,19 +49,23 @@ class MetodoLocal(Metodo):
             else:
                 args.append(value)
 
-        return limiariza_fn(self.name, tam, *args)
+        return limiariza_fn(self.name, tam//2, *args)
 
     def limiariza(self, img: Image, tam: int, params: Namespace) -> Image:
         fn = self.fn(tam, params)
         size = 2 * tam + 1
-        return generic_filter(img, fn, size=size)
+        return generic_filter(img, fn, size=size, mode='mirror')
 
     def add_arg_parser(self, parser: AddSubParser) -> None:
         subparser = parser(self.name, self.description)
+        subparser.add_argument('-t', '--tamanho', type=tamanho, default=5,
+            help='Tamanho da vizinhança de limiarização.')
+
         if self.params:
             params = subparser.add_argument_group('Parâmetros')
         for key in self.params.keys():
             params.add_argument(f'-{key}', type=float, required=True)
+        subparser.set_defaults(metodo=self)
 
 
 METODO: Dict[str, Metodo] = {

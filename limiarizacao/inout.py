@@ -2,8 +2,8 @@
 Funções de IO com as imagens.
 """
 from tipos import Image
-import cv2
 import numpy as np
+import cv2
 
 
 def imgread(arquivo: str) -> Image:
