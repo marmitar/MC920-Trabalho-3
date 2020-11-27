@@ -37,8 +37,6 @@ if __name__ == "__main__":
 
     # aplica pontilhado
     img = args.metodo.limiariza(img, args)
-    # range completo para a visualização
-    img *= 255
 
     # saída
     if args.output:
