@@ -42,8 +42,9 @@ class UserData(Structure):
     _fields_ = [("param", c_double * 4)]
 
 
-def limiariza_fn(nome: str, *params: float) -> LowLevelCallable:
-    data = UserData(*params)
+def limiariza_fn(nome: str, p0: float=0, p1: float=0, p2: float=0, p3: float=0) -> LowLevelCallable:
+    array = c_double * 4
+    data = UserData(array(p0, p1, p2, p3))
     ptr = cast(pointer(data), c_void_p)
 
     fn = getattr(liblimiar, f'limiariza_{nome}')

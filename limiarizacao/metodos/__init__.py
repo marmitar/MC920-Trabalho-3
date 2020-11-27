@@ -63,7 +63,7 @@ class MetodoLocal(Metodo):
         if self.params:
             params = subparser.add_argument_group('parâmetros')
         for key, default in self.params.items():
-            params.add_argument(f'-{key}', type=float, required=True,
+            params.add_argument(f'-{key}', type=float, default=default,
                                 help=f'(default = {default})')
         subparser.set_defaults(metodo=self)
 
