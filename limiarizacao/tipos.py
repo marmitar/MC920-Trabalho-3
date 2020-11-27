@@ -20,7 +20,7 @@ else:
 AddSubParser = Callable[[str, str], ArgumentParser]
 
 class Metodo(Protocol):
-    def limiariza(self, img: Image, tam: int, params: Namespace) -> Image:
+    def limiariza(self, img: Image, params: Namespace) -> Image:
         ...
 
     def add_arg_parser(self, parser: AddSubParser) -> None:

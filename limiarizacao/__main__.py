@@ -12,13 +12,15 @@ parser = ArgumentParser(description=description, allow_abbrev=False)
 # argumentos necessários
 parser.add_argument('input', metavar='INPUT', type=str,
                     help='imagem de entrada')
+subparsers = parser.add_subparsers(required=True,
+                    help='método de limiarização')
 # opções de saída
-parser.add_argument('-o', '--output', type=str, action='append', metavar='FILE',
+optsaida = parser.add_argument_group('opções de saída')
+optsaida.add_argument('-o', '--output', type=str, action='append', metavar='FILE',
                     help='arquivo para gravar o resultado')
-parser.add_argument('-f', '--force-show', action='store_true',
+optsaida.add_argument('-f', '--force-show', action='store_true',
                     help='sempre mostra o resultado final em uma janela')
 
-subparsers = parser.add_subparsers()
 
 def add_subparser(nome: str, descricao: str) -> ArgumentParser:
     return subparsers.add_parser(nome, description=descricao)
@@ -26,16 +28,15 @@ def add_subparser(nome: str, descricao: str) -> ArgumentParser:
 for metodo in METODO.values():
     metodo.add_arg_parser(add_subparser)
 
-
 if __name__ == "__main__":
-    args = parser.parse_intermixed_args()
+    args = parser.parse_args()
 
     # entrada
     arquivo = args.input
     img = imgread(arquivo)
 
     # aplica pontilhado
-    img = args.metodo(img, args.dist, args.varredura)
+    img = args.metodo.limiariza(img, args)
     # range completo para a visualização
     img *= 255
 
