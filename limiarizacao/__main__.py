@@ -5,8 +5,7 @@ from metodos import METODO
 
 
 # parser de argumentos
-description = 'Ferramenta de aplicação de meios-tons para o Trabalho 2.'
-usage = '%(prog)s [OPTIONS] INPUT'
+description = 'Ferramenta de limiarização para o Trabalho 3.'
 
 parser = ArgumentParser(description=description, allow_abbrev=False)
 # argumentos necessários
