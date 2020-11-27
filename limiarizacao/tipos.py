@@ -3,7 +3,10 @@ Procolos para tipagem estática com ``mypy``.
 """
 from __future__ import annotations
 from numpy import ndarray, uint8, float32
-from typing import TYPE_CHECKING, Type, overload, Union, Tuple
+from typing import (
+    TYPE_CHECKING, overload,
+    Type, Union, Tuple, Protocol
+)
 
 if TYPE_CHECKING:
     # Python 3.8+
@@ -12,6 +15,10 @@ else:
     # Python 3.7-
     Literal = Union
 
+
+class Metodo(Protocol):
+    def limiariza(self, img: Image, tam: int, **params: float) -> Image:
+        ...
 
 class Image(ndarray): # type: ignore
     """
