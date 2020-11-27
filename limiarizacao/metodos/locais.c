@@ -18,7 +18,7 @@ double limiariza(const double *restrict buffer, size_t buflen, data_t data, limi
     double pixel = buffer[centro];
 
     if (pixel > limiar(buffer, buflen, data)) {
-        return 1.0;
+        return 255.0;
     } else {
         return 0.0;
     }
