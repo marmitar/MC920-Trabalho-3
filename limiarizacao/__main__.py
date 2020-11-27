@@ -27,6 +27,7 @@ def add_subparser(nome: str, descricao: str) -> ArgumentParser:
 for metodo in METODOS:
     metodo.add_arg_parser(add_subparser)
 
+
 if __name__ == "__main__":
     args = parser.parse_args()
 

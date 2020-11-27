@@ -71,5 +71,6 @@ class MetodoLocal(Metodo):
 METODOS: List[Metodo] = {
     MetodoGlobal(),
     MetodoLocal('bernsen', 'Método de Bernsen.'),
-    MetodoLocal('niblack', 'Método de Niblack.', k=0.5)
+    MetodoLocal('niblack', 'Método de Niblack.', k=0.5),
+    MetodoLocal('sauvola', 'Método de Sauvola e Pietaksinen.', k=0.5, R=128)
 }

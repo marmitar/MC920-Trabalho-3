@@ -48,3 +48,11 @@ double limiar_niblack(const double vizinhanca[], size_t tam, data_t data) {
     return xy.mu + k * xy.sigma;
 }
 LIMIARIZA(niblack)
+
+static inline attribute(pure, nonnull)
+double limiar_sauvola(const double vizinhanca[], size_t tam, data_t data) {
+    struct avgstd xy = avgstd(vizinhanca, tam);
+    double k = data.param[0], R = data.param[1];
+    return xy.mu * (1 + k * (xy.sigma / R - 1));
+}
+LIMIARIZA(sauvola)
