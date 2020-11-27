@@ -1,7 +1,7 @@
 import sys
 from argparse import ArgumentParser, ArgumentTypeError
 from inout import imgread, imgwrite, imgshow
-from metodos import METODO
+from metodos import METODOS
 
 
 # parser de argumentos
@@ -24,7 +24,7 @@ optsaida.add_argument('-f', '--force-show', action='store_true',
 def add_subparser(nome: str, descricao: str) -> ArgumentParser:
     return subparsers.add_parser(nome, description=descricao)
 
-for metodo in METODO.values():
+for metodo in METODOS:
     metodo.add_arg_parser(add_subparser)
 
 if __name__ == "__main__":

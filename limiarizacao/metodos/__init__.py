@@ -3,7 +3,7 @@ from scipy.ndimage import generic_filter
 from .locais import limiariza_fn
 import numpy as np
 
-from typing import Dict, Optional
+from typing import List, Optional
 from scipy import LowLevelCallable
 from tipos import Image, Metodo, AddSubParser, Namespace
 
@@ -68,8 +68,8 @@ class MetodoLocal(Metodo):
         subparser.set_defaults(metodo=self)
 
 
-METODO: Dict[str, Metodo] = {
-    'global': MetodoGlobal(),
-    'bernsen': MetodoLocal('bernsen', 'Método de Bernsen.'),
-    'niblack': MetodoLocal('niblack', 'Método de Niblack.', k=0.5)
+METODOS: List[Metodo] = {
+    MetodoGlobal(),
+    MetodoLocal('bernsen', 'Método de Bernsen.'),
+    MetodoLocal('niblack', 'Método de Niblack.', k=0.5)
 }
