@@ -99,7 +99,7 @@ double limiar_media(const double vizinhanca[], size_t tam, UNUSED data_t data) {
 LIMIARIZA(media)
 
 static inline attribute(pure, nonnull)
-double limiar_media(const double vizinhanca[], size_t tam, UNUSED data_t data) {
-    return mean(vizinhanca, tam);
+double limiar_mediana(const double vizinhanca[], size_t tam, UNUSED data_t data) {
+    return median(vizinhanca, tam);
 }
-LIMIARIZA(media)
+LIMIARIZA(mediana)
