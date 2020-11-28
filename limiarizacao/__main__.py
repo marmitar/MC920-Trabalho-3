@@ -1,3 +1,6 @@
+"""
+Tratamento geral dos argumentos da linha de comando.
+"""
 import sys
 from argparse import ArgumentParser, ArgumentTypeError
 from inout import imgread, imgwrite, imgshow
@@ -5,14 +8,12 @@ from metodos import METODOS
 
 
 # parser de argumentos
-description = 'Ferramenta de limiarização para o Trabalho 3.'
-
-parser = ArgumentParser(description=description, allow_abbrev=False)
+parser = ArgumentParser(allow_abbrev=False,
+                        description='Ferramenta de limiarização para o Trabalho 3.')
 # argumentos necessários
 parser.add_argument('input', metavar='INPUT', type=str,
                     help='imagem de entrada')
-subparsers = parser.add_subparsers(required=True,
-                    help='método de limiarização')
+subparsers = parser.add_subparsers(help='método de limiarização')
 # opções de saída
 optsaida = parser.add_argument_group('opções de saída')
 optsaida.add_argument('-o', '--output', type=str, action='append', metavar='FILE',
@@ -22,9 +23,13 @@ optsaida.add_argument('-f', '--force-show', action='store_true',
 
 
 def add_subparser(nome: str, descricao: str) -> ArgumentParser:
+    """
+    Adiciona um subparser na linha de comando.
+    """
     return subparsers.add_parser(nome, description=descricao)
 
 for metodo in METODOS:
+    # adiciona o parser de cada método
     metodo.add_arg_parser(add_subparser)
 
 
@@ -35,7 +40,7 @@ if __name__ == "__main__":
     arquivo = args.input
     img = imgread(arquivo)
 
-    # aplica pontilhado
+    # aplica limiarização
     img = args.metodo.limiariza(img, args)
 
     # saída
