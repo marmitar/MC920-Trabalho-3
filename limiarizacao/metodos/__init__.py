@@ -151,7 +151,7 @@ METODOS: List[Metodo] = [
     MetodoLocal('bernsen', 'Método de Bernsen.'),
     MetodoLocal('niblack', 'Método de Niblack.', k=0.5),
     MetodoLocal('sauvola', 'Método de Sauvola e Pietaksinen.', k=0.5, R=128),
-    MetodoNormalizado('phansalskar', 'Método de Phansalskar, More e Sabale.', k=0.25, R=0.5, p=2, q=10),
+    MetodoNormalizado('phansalkar', 'Método de Phansalkar, More e Sabale.', k=0.25, R=0.5, p=2, q=10),
     MetodoLocal('contraste', 'Método do Contraste.'),
     MetodoLocal('media', 'Método da Média.'),
     MetodoLocal('mediana', 'Método da Mediana.')

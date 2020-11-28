@@ -84,14 +84,14 @@ static inline attribute(pure, nonnull)
 /**
  * Método de Phansalskar, More e Sabale.
  */
-double limiar_phansalskar(const double vizinhanca[], size_t tam, data_t data) {
+double limiar_phansalkar(const double vizinhanca[], size_t tam, data_t data) {
     struct avgstd xy = avgstd(vizinhanca, tam);
     double k = data.param[0], R = data.param[1];
     double p = data.param[2], q = data.param[3];
 
     return xy.mu * (1.0 + p * exp(-q * xy.mu) + k * ((xy.sigma / R) - 1.0));
 }
-LIMIARIZA(phansalskar)
+LIMIARIZA(phansalkar)
 
 static inline attribute(pure, nonnull)
 /**
