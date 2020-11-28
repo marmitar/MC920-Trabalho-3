@@ -1,25 +1,41 @@
-from argparse import ArgumentTypeError
+"""
+Métodos de Limiarização, Global e Local.
+"""
+from argparse import ArgumentTypeError, Namespace
 from scipy.ndimage import generic_filter
 from .locais import limiariza_fn
 import numpy as np
 
 from typing import List, Optional
 from scipy import LowLevelCallable
-from tipos import Image, Metodo, AddSubParser, Namespace
-
+from tipos import Image, Metodo, AddSubParser
 
 
 class MetodoGlobal(Metodo):
+    """
+    Método de Limiarização Global.
+
+    Recebe o parâmetro `T` da linha de comando. Se nada for recebido
+    (ie. `T` é `None`) então usa a média da imagem como limite.
+    """
     def limiariza(self, img: Image, params: Namespace) -> Image:
+        """
+        Aplica a limiarização em uma imagem.
+        """
         limite = params.T
         if limite is None:
             limite = np.mean(img)
 
+        # força saída como uint8
         min, max = np.uint8(0), np.uint8(255)
         res: Image = np.where(img > limite, max, min)
         return res
 
     def add_arg_parser(self, parser: AddSubParser) -> None:
+        """
+        Adiciona parser de argumentos do método com subparser
+        para a linha de comandos.
+        """
         subparser = parser('global', 'Método Global.')
         subparser.add_argument('-T', metavar='num', type=float,
             help='Limiar fixo. Usa a intensidade média da imagem, se não for definido.')
@@ -27,6 +43,11 @@ class MetodoGlobal(Metodo):
 
 
 def tamanho(entrada: str) -> int:
+    """
+    Validade do tamanho da vizanhança (block size).
+
+    Tamanho deve ser inteiro, ímpar e maior que 3.
+    """
     try:
         tam = int(entrada, base=10)
         if tam < 3 or tam % 2 != 1:
@@ -37,12 +58,27 @@ def tamanho(entrada: str) -> int:
 
 
 class MetodoLocal(Metodo):
+    """
+    Métodos de Limiarização Local.
+
+    Os parâmetros devem ser passados como argumentos com nome,
+    sendo no máximo quatro (4) parâmetros.
+
+    O nome e a descrição são usados para os argumentos da linha de
+    comando. Além disso, o nome é usado para a chamada da função
+    em C.
+    """
     def __init__(self, name: str, description: str, **params: float):
         self.name = name
         self.description = description
         self.params = params
 
     def fn(self, params: Namespace) -> LowLevelCallable:
+        """
+        Recupera a função em C do método com os parâmetros
+        corretos para a `scipy.ndimage.generic_filter`.
+        """
+        # argumentos devem ser passados na ordem que são definidos
         args = []
         for key, default in self.params.items():
             value = getattr(params, key, None)
@@ -54,15 +90,23 @@ class MetodoLocal(Metodo):
         return limiariza_fn(self.name, *args)
 
     def limiariza(self, img: Image, params: Namespace) -> Image:
+        """
+        Aplica a limiarização em uma imagem.
+        """
         fn = self.fn(params)
         res: Image = generic_filter(img, fn, size=params.tamanho, mode='mirror')
         return res
 
     def add_arg_parser(self, parser: AddSubParser) -> None:
+        """
+        Adiciona parser de argumentos do método com subparser
+        para a linha de comandos.
+        """
         subparser = parser(self.name, self.description)
         subparser.add_argument('-t', '--tamanho', metavar='num', type=tamanho, default=5,
             help='tamanho da vizinhança de limiarização (default=5)')
 
+        # adiciona os parâmetros na linha de comando
         if self.params:
             params = subparser.add_argument_group('parâmetros')
         for key, default in self.params.items():
@@ -71,12 +115,22 @@ class MetodoLocal(Metodo):
         subparser.set_defaults(metodo=self)
 
 class MetodoNormalizado(MetodoLocal):
+    """
+    Métodos de Limiarização Local com Imagem Normalizada.
+
+    A imagem é normalizado para o intervalo [0, 1] antes
+    da limiarização.
+    """
     def limiariza(self, img: Image, params: Namespace) -> Image:
         resultado = super().limiariza(img / 255, params)
         min, max = np.uint8(0), np.uint8(255)
         res: Image = np.where(resultado < 1, min, max)
         return res
 
+
+"""
+Lista de métodos de limiarização com os parâmetros padrão de cada um.
+"""
 METODOS: List[Metodo] = [
     MetodoGlobal(),
     MetodoLocal('bernsen', 'Método de Bernsen.'),

@@ -9,8 +9,6 @@ from typing import (
     Type, Union, Tuple, Protocol, Callable
 )
 
-__all__ = ["AddSubParser", "Namespace", "Metodo", "Image"]
-
 if TYPE_CHECKING:
     # Python 3.8+
     from typing import Literal
@@ -19,13 +17,52 @@ else:
     Literal = Union
 
 
+"""
+Função que adiciona subparser no ArgumentParser global do
+programa. Recebe o título e a descrição do novo subparser.
+"""
 AddSubParser = Callable[[str, str], ArgumentParser]
 
+
 class Metodo(Protocol):
+    """
+    Métodos de Limiarização.
+    """
     def limiariza(self, img: Image, params: Namespace) -> Image:
+        """
+        Aplica a limiarização em uma imagem.
+
+        Parâmetros
+        ----------
+        img: np.ndarray
+            Matriz representando uma imagem.
+        params: Namespace
+            Argumentos parseados da linha de comando.
+
+        Retorno
+        -------
+        out: np.ndarray
+            Imagem limiarizada.
+        """
         ...
 
     def add_arg_parser(self, parser: AddSubParser) -> None:
+        """
+        Adiciona parser de argumentos do método com subparser
+        para a linha de comandos.
+
+        Parâmetros
+        ----------
+        img: np.ndarray
+            Matriz representando uma imagem.
+        params: Namespace
+            Argumentos parseados da linha de comando.
+
+        Retorno
+        -------
+        out: np.ndarray
+            Imagem limiarizada.
+        """
         ...
 
 class Image(ndarray): # type: ignore
