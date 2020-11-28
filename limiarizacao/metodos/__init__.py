@@ -74,7 +74,7 @@ class MetodoNormalizado(MetodoLocal):
         min, max = np.uint8(0), np.uint8(255)
         return np.where(resultado < 1, min, max)
 
-METODOS: List[Metodo] = {
+METODOS: List[Metodo] = [
     MetodoGlobal(),
     MetodoLocal('bernsen', 'Método de Bernsen.'),
     MetodoLocal('niblack', 'Método de Niblack.', k=0.5),
@@ -83,4 +83,4 @@ METODOS: List[Metodo] = {
     MetodoLocal('contraste', 'Método do Contraste.'),
     MetodoLocal('media', 'Método da Média.'),
     MetodoLocal('mediana', 'Método da Mediana.')
-}
+]
