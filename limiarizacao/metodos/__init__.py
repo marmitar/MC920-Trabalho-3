@@ -68,13 +68,18 @@ class MetodoLocal(Metodo):
                                 help=f'(default = {default})')
         subparser.set_defaults(metodo=self)
 
+class MetodoNormalizado(MetodoLocal):
+    def limiariza(self, img: Image, params: Namespace) -> Image:
+        resultado = super().limiariza(img / 255, params)
+        min, max = np.uint8(0), np.uint8(255)
+        return np.where(resultado < 1, min, max)
 
 METODOS: List[Metodo] = {
     MetodoGlobal(),
     MetodoLocal('bernsen', 'Método de Bernsen.'),
     MetodoLocal('niblack', 'Método de Niblack.', k=0.5),
     MetodoLocal('sauvola', 'Método de Sauvola e Pietaksinen.', k=0.5, R=128),
-    MetodoLocal('phansalskar', 'Método de Phansalskar, More e Sabale.', k=0.25, R=0.5, p=2, q=10),
+    MetodoNormalizado('phansalskar', 'Método de Phansalskar, More e Sabale.', k=0.25, R=0.5, p=2, q=10),
     MetodoLocal('contraste', 'Método do Contraste.'),
     MetodoLocal('media', 'Método da Média.'),
     MetodoLocal('mediana', 'Método da Mediana.')
