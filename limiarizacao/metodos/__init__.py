@@ -16,7 +16,8 @@ class MetodoGlobal(Metodo):
             limite = np.mean(img)
 
         min, max = np.uint8(0), np.uint8(255)
-        return np.where(img > limite, max, min)
+        res: Image = np.where(img > limite, max, min)
+        return res
 
     def add_arg_parser(self, parser: AddSubParser) -> None:
         subparser = parser('global', 'Método Global.')
@@ -54,7 +55,8 @@ class MetodoLocal(Metodo):
 
     def limiariza(self, img: Image, params: Namespace) -> Image:
         fn = self.fn(params)
-        return generic_filter(img, fn, size=params.tamanho, mode='mirror')
+        res: Image = generic_filter(img, fn, size=params.tamanho, mode='mirror')
+        return res
 
     def add_arg_parser(self, parser: AddSubParser) -> None:
         subparser = parser(self.name, self.description)
@@ -72,7 +74,8 @@ class MetodoNormalizado(MetodoLocal):
     def limiariza(self, img: Image, params: Namespace) -> Image:
         resultado = super().limiariza(img / 255, params)
         min, max = np.uint8(0), np.uint8(255)
-        return np.where(resultado < 1, min, max)
+        res: Image = np.where(resultado < 1, min, max)
+        return res
 
 METODOS: List[Metodo] = [
     MetodoGlobal(),

@@ -9,6 +9,8 @@ from typing import (
     Type, Union, Tuple, Protocol, Callable
 )
 
+__all__ = ["AddSubParser", "Namespace", "Metodo", "Image"]
+
 if TYPE_CHECKING:
     # Python 3.8+
     from typing import Literal
