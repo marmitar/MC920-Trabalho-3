@@ -37,32 +37,32 @@ class MetodoGlobal(Metodo):
         para a linha de comandos.
         """
         subparser = parser('global', 'Método Global.')
-        subparser.add_argument('-T', metavar='num', type=float,
+        subparser.add_argument('-T', metavar='NUM', type=float,
             help='Limiar fixo. Usa a intensidade média da imagem, se não for definido.')
         subparser.set_defaults(metodo=self)
 
 
-def tamanho(entrada: str) -> int:
+def raio(entrada: str) -> int:
     """
-    Validade do tamanho da vizanhança (block size).
+    Validade do raio da vizanhança (ou `(block size - 1) / 2`).
 
-    Tamanho deve ser inteiro, ímpar e maior que 3.
+    Raio deve ser um inteiro positivo.
     """
     try:
-        tam = int(entrada, base=10)
-        if tam < 3 or tam % 2 != 1:
+        raio = int(entrada, base=10)
+        if raio < 1:
             raise ValueError()
-        return tam
+        return raio
     except ValueError:
-        raise ArgumentTypeError(f'tamanho inválido: {entrada}')
+        raise ArgumentTypeError(f'raio inválido: {entrada}')
 
-def vizinhanca4(tam: int) -> np.ndarray:
+def vizinhanca4(raio: int) -> np.ndarray:
     """
     Matriz booleana com a vizinhança-4 do pixel.
     """
-    v = np.abs(np.arange(-tam, tam + 1))
+    v = np.abs(np.arange(-raio, raio + 1))
     i, j = np.meshgrid(v, v)
-    return i + j <= tam
+    return i + j <= raio
 
 
 class MetodoLocal(Metodo):
@@ -103,9 +103,10 @@ class MetodoLocal(Metodo):
         """
         fn = self.fn(params)
         if params.viz4:
-            res: Image = generic_filter(img, fn, size=params.tamanho, mode='mirror')
+            tamanho = 2 * params.raio + 1
+            res: Image = generic_filter(img, fn, size=tamanho, mode='mirror')
         else:
-            viz = vizinhanca4(params.tamanho)
+            viz = vizinhanca4(params.raio)
             res = generic_filter(img, fn, footprint=viz, mode='mirror')
         return res
 
@@ -116,8 +117,8 @@ class MetodoLocal(Metodo):
         """
         subparser = parser(self.name, self.description)
         # argumentos gerais do método
-        subparser.add_argument('-t', '--tamanho', metavar='num', type=tamanho, default=5,
-            help='tamanho da vizinhança de limiarização (default=5)')
+        subparser.add_argument('-r', '--raio', metavar='RAIO', type=raio, default=5,
+            help='raio da vizinhança de limiarização (default=5)')
         subparser.add_argument('-v4', '--vizinhanca-4', dest='viz4', action='store_true',
             help='usa vizinhança-4 em vez de 8')
 
@@ -125,7 +126,7 @@ class MetodoLocal(Metodo):
         if self.params:
             params = subparser.add_argument_group('parâmetros')
         for key, default in self.params.items():
-            params.add_argument(f'-{key}', type=float, default=default,
+            params.add_argument(f'-{key}', metavar=key, type=float, default=default,
                                 help=f'(default = {default})')
         subparser.set_defaults(metodo=self)
 
