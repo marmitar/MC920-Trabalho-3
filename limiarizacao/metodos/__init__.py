@@ -56,6 +56,14 @@ def tamanho(entrada: str) -> int:
     except ValueError:
         raise ArgumentTypeError(f'tamanho inválido: {entrada}')
 
+def vizinhanca4(tam: int) -> np.ndarray:
+    """
+    Matriz booleana com a vizinhança-4 do pixel.
+    """
+    v = np.abs(np.arange(-tam, tam + 1))
+    i, j = np.meshgrid(v, v)
+    return i + j <= tam
+
 
 class MetodoLocal(Metodo):
     """
@@ -94,7 +102,11 @@ class MetodoLocal(Metodo):
         Aplica a limiarização em uma imagem.
         """
         fn = self.fn(params)
-        res: Image = generic_filter(img, fn, size=params.tamanho, mode='mirror')
+        if params.viz4:
+            res: Image = generic_filter(img, fn, size=params.tamanho, mode='mirror')
+        else:
+            viz = vizinhanca4(params.tamanho)
+            res = generic_filter(img, fn, footprint=viz, mode='mirror')
         return res
 
     def add_arg_parser(self, parser: AddSubParser) -> None:
@@ -103,8 +115,11 @@ class MetodoLocal(Metodo):
         para a linha de comandos.
         """
         subparser = parser(self.name, self.description)
+        # argumentos gerais do método
         subparser.add_argument('-t', '--tamanho', metavar='num', type=tamanho, default=5,
             help='tamanho da vizinhança de limiarização (default=5)')
+        subparser.add_argument('-v4', '--vizinhanca-4', dest='viz4', action='store_true',
+            help='usa vizinhança-4 em vez de 8')
 
         # adiciona os parâmetros na linha de comando
         if self.params:
