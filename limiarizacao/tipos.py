@@ -1,20 +1,23 @@
 """
 Procolos para tipagem estática com ``mypy``.
 """
-from __future__ import annotations
+# from __future__ import annotations
 from argparse import ArgumentParser, Namespace
 from numpy import ndarray, uint8, float32
 from typing import (
     TYPE_CHECKING, overload,
-    Type, Union, Tuple, Protocol, Callable
+    Type, Union, Tuple, Callable
 )
 
 if TYPE_CHECKING:
     # Python 3.8+
-    from typing import Literal
+    from typing import Literal, Protocol
 else:
+    from collections import defaultdict
     # Python 3.7-
-    Literal = Union
+    Literal = defaultdict(str)
+    Protocol = object
+    Image = 'Image'
 
 
 """
@@ -65,7 +68,7 @@ class Metodo(Protocol):
         """
         ...
 
-class Image(ndarray): # type: ignore
+class Image(ndarray): # type: ignore # pylint: disable=function-redefined
     """
     Matrizes que representam imagens em OpenCV e bibliotecas similares.
     """
