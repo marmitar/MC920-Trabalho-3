@@ -3,7 +3,32 @@ import numpy as np
 from matplotlib import pyplot as plt
 
 import seaborn as sns
-sns.set_theme(context='paper', style='darkgrid', palette='muted')
+sns.set_theme(context='paper', style='darkgrid', palette='muted', rc={
+    # 'axes.spines.right': False,
+    # 'axes.spines.top':   False,
+    # 'axes.edgecolor':  '.4',
+    # 'axes.labelcolor': '.0',
+    # 'axes.titlesize': 'large',
+    # 'axes.labelsize': 'medium',
+    'figure.autolayout': True,
+    'figure.figsize': (4.5, 3.5),
+    'font.family': ['serif'],
+    # 'font.size': 10.0,
+    # 'grid.linestyle': '--',
+    # 'legend.facecolor': '.9',
+    # 'legend.frameon': True,
+    'savefig.transparent': True,
+    # 'text.color': '.0',
+    # 'xtick.labelsize': 'small',
+    # 'ytick.labelsize': 'small',
+    'text.usetex': True,
+    'pgf.preamble': r"""
+        \usepackage[portuguese]{babel}
+        \usepackage[T1]{fontenc}
+        \usepackage[utf8]{inputenc}
+    """,
+    'pgf.rcfonts': False
+})
 
 try:
     [_, filename, output] = sys.argv
