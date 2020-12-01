@@ -1,38 +1,34 @@
 \section{O Programa}
 
-Além das bibliotecas padrão de Python, foram utilizados os pacotes NumPy \autocite{ref:numpy} e, de forma opcional, Numba \autocite{ref:numba}.
+O corpo do programa foi desenvolvido em Python 3.6+, utilizando a biblioteca padrão em conjunto com as bibliotecas OpenCV, para leitura e escrita das imagens, NumPy e SciPy, para as técnicas de limiarização local.
+
+Em especial, a limiarização local foi implementada com a função \mintinline{python3}{generic_filter} \autocite{ref:genericfilter} do SciPy. Para acelerar um pouco o processamento, as funções de cálculo do limiar que são passadas como argumento da \mintinline{python3}{generic_filter} foram implementadas em C (padrão GNU11) e requerem o compilador GCC 4.7+ na primeira execução do programa.
 
 \subsection{Código Fonte}
 
-    O programa foi desenvolvido em Python 3.8, mas deveria funcionar com a versões 3.7 e 3.9 também. Além disso, o código fonte foi separado nos seguintes arquivos:
+    O código fonte foi separado nos seguintes arquivos, dentro da pasta \texttt{limiarizacao}:
 
     \begin{description}
-        \item[main.py] É o corpo do programa, resposável por processar os comandos e as opções da linha de comando.
+        \item[\_\_main\_\_.py] Processamento os comandos e as opções da linha de comando.
 
-        \item[lib] Pacote interno com as operações de pontilhado.
+        \item[metodos] Pacote interno com as operações de limiarização.
 
         \begin{description}
-            \item[lib/\_\_init\_\_.py] Funções gerais de aplicação do pontilhado em imagens coloridas e em escala de cinza, com as opções de varredura.
+            \item[metodos/\_\_init\_\_.py] Classes e objetos para as técnicas de limiarização e tratamento dos parâmetros de cada técnica, pelos argumentos da linha de comando.
 
-            \item[lib/nb.py] Mock up do decorador \mintinline{python3}{@numba.jit} \autocite{ref:numbajit}, para que a ferramenta funcione com ou sem a biblioteca Numba.
+            \item[metodos/locais.py] Wrapper para a chamada das funções em C.
 
-            \item[lib/horizontal.py] Implementação das varreduras horizontais: varredura unidirecional e a alternada.
+            \item[metodos/locais.c] Funções de cálculo do limiar da vizinhança do pixel.
 
-            \item[lib/direcao.py] Controle de direção para varreduras não horizontais (espiral e curvas de Hilbert).
-
-            \item[lib/espiral.py] Implementação da varredura em espiral.
-
-            \item[lib/hilbert.py] Varredura seguindo uma curva de Hilbert.
+            \item[metodos/ops.c] Operações de mínimo, máximo, média, desvio padrão e mediana.
         \end{description}
 
-        \item[dists.py] Definição das distribuições de erro ao longo da operação de meios-tons.
+        \item[inout.py] Tratamento de entrada e saída do programa.
 
-        \item[inout.py] Funções que tratam da entrada e saída do programa, como leitura e escrita de arquivos de imagem e também da apresentação da imagem em uma janela gráfica.
-
-        \item[tipos.py] Definição de alguns tipos para checagem estática com \texttt{mypy} \autocite{ref:mypy}.
+        \item[tipos.py] Tipos para checagem estática com \texttt{mypy} \autocite{ref:mypy}.
     \end{description}
 
-    Todas as figuras base utilizadas neste relatório podem ser encontradas na pasta \texttt{imagens} do código fonte, como descrito nos rótulos da \cref{fig:base}. Além disso, foi disponibilizado também um \textit{script} em \texttt{bash}, \texttt{run.sh}, que realiza todos os processamentos requeridos em cada uma das imagens na pasta.
+    Todas as figuras base utilizadas neste relatório podem ser encontradas na pasta \texttt{imagens} do código fonte, como descrito \red{SECIMG}. Além disso, \red{FOI ??} disponibilizado também um \textit{script} em \texttt{bash}, \texttt{run.sh}, que realiza todos os processamentos apresentados no relatório.
 
 \subsection{Execução} \label{sec:execucao}
 
