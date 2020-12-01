@@ -1,18 +1,18 @@
-\newcommand{\histograma}[1]{
+\newcommand{\histograma}[2][width=\textwidth]{
     \begin{figure}[H]
         \centering
-        \begin{subfigure}{0.3\textwidth}
+        \begin{subfigure}{0.35\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{base/#1.png}
+            \includegraphics[#1]{base/#2.png}
             \caption{Imagem.}
         \end{subfigure}%
-        \begin{subfigure}{0.68\textwidth}
+        \begin{subfigure}{0.64\textwidth}
             \centering
-            \import{../resultados/hist}{#1.pgf}
+            \import{../resultados/hist}{#2.pgf}
             \caption{Histograma.}
         \end{subfigure}
 
-        \caption{\texttt{imagens/#1.pgm}}
-        \label{fig:base:#1}
+        \caption{\texttt{imagens/#2.pgm}}
+        \label{fig:base:#2}
     \end{figure}
 }
