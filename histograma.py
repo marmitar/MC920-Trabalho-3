@@ -42,7 +42,7 @@ img = cv2.imread(filename, cv2.IMREAD_GRAYSCALE)
 sns.histplot(x=img.flat, bins=np.arange(256), fill=False, color='k')
 plt.xlabel('Valor do Pixel')
 plt.ylabel('Número de Pixels')
-plt.gca().xaxis.set_major_locator(MultipleLocator(64))
+plt.gca().xaxis.set_major_locator(MultipleLocator(32))
 
 if output is None:
     plt.show()
