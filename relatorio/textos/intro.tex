@@ -1,13 +1,5 @@
 \section{Introdução} \label{sec:intro}
 
-Este trabalho teve como objetivo a implementação de técnicas de pontilhado com difusão de erros. A ideia é reduzir a quantidade de cores tentando manter a imagem o mais próximo possível da original. Isso é feito reduzindo a intesidade para seu limite mais próximo, ao longo de um caminho pela imagem, mas aplicando uma distribuição de erros na vizinhança do pixel.
+Neste trabalho foram implementadas técnicas de limiarização de imagens monocromáricas. Esses processamento são comumente utilizados para destacar objetos na imagem, separando-os do fundo. Por esse motivo, essas técnicas também são um tipo de binarização, reduzindo a imagem para apenas duas cores.
 
-A \cref{fig:base} apresenta as imagens base deste trabalho, usadas para análise e discussão das formas diferentes de aplicar o pontilhado. As figuras \ref{fig:baboon} e \ref{fig:peppers} são $512 \times 512$, enquanto a \cref{fig:monalisa} é $256 \times 256$ e a \cref{fig:watch} é $1024 \times 768$. Ao todo serão aplicadas 6 distribuições de erro com 4 curvas diferentes em cada figura. As distribuições de erros estão apresentadas na \cref{sec:distribuicoes}, equanto as curvas de varrimento podem ser encontradas na \cref{sec:varredura}.
-
-% \begin{figure}[H]
-%     \centering
-%     \input{figuras/base}
-
-%     \caption{Imagens base da comparação dos filtros.}
-%     \label{fig:base}
-% \end{figure}
+Os oitos métodos de limiarização do trabalho envolvem limites em em toda a imagem, no método global, ou em apenas uma vizinhança do pixel, nos métodos locais. As técnicas foram comparadas em sete imagens distintas, apresentadas na \red{SECIMG}, e vários parâmetros de controle de cada método, descritos junto com o método na \red{SECMET}.
