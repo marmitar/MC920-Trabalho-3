@@ -28,30 +28,18 @@ Em especial, a limiarização local foi implementada com a função \mintinline{
         \item[tipos.py] Tipos para checagem estática com \texttt{mypy} \autocite{ref:mypy}.
     \end{description}
 
-    Todas as figuras base utilizadas neste relatório podem ser encontradas na pasta \texttt{imagens} do código fonte, como descrito \red{SECIMG}. Além disso, \red{FOI ??} disponibilizado também um \textit{script} em \texttt{bash}, \texttt{run.sh}, que realiza todos os processamentos apresentados no relatório.
+    Além disso, existem outros arquivos junto com o código fonte. A pasta \texttt{imagens} contém as figuras base utilizadas neste relatório, apresentadas na \red{SECIMG}. \red{FOI ??} disponibilizado também um \textit{script} em \texttt{bash}, \texttt{run.sh}, que realiza todos os processamentos apresentados no relatório \red{RESULTADOS?}.
 
 \subsection{Execução} \label{sec:execucao}
 
-    A execução deve ser feita através do interpretador de Python 3.7+. A única entrada obrigatória é o caminho para a imagem PNG que será processada. Ao final da execução, a imagem resultante será exibida na tela.
+    A execução deve ser feita através do interpretador de Python, com as seguintes entradas obrigatórias: o caminho para a imagem PGM que será processada e o método de limiarização a ser aplicado. Ao final da execução, a imagem resultante será exibida na tela.
 
-    % \begin{figure}[H]
-    %     \centering
-    %     \includegraphics[width=6cm]{resultados/execucao.png}
+    Os argumentos opicionais podem ser vistos com \mintinline{bash}{$ python3 limiarizacao --help}. A primeira opção é \mintinline{text}{--output}, ou \mintinline{text}{-o}, que salva o resultado em um arquivo PNG ou PGM em vez de exibir na tela. Se é desejável tanto a exibição da imagem quanto o salvamento no arquivo, o argumento \mintinline{text}{--force-show} ou \mintinline{text}{-f} pode ser usado.
 
-    %     \caption{Aplicação de pontilhado com a \texttt{baboon.png}.}
-    %     \label{fig:execucao}
-    % \end{figure}
+    O método de limiarização deve vir após essas opções e pode ser uma das seguintes chaves: \mintinline{bash}{global}, \mintinline{bash}{bernsen}, \mintinline{bash}{niblack}, \mintinline{bash}{sauvola}, \mintinline{bash}{phansalkar}, \mintinline{bash}{contraste}, \mintinline{bash}{media} ou \mintinline{bash}{mediana}. Os parâmetros de cada método pode ser visto com \mintinline{bash}{$ python3 limiarizacao METODO --help}, onde \mintinline{bash}{METODO} é a técnica desejada.
 
-    Os argumentos opicionais podem ser vistos com \mintinline{bash}{$ python3 main.py --help}. A mais importante das opções é \mintinline{text}{--output}, ou \mintinline{text}{-o}, que salva o resultado em um arquivo PNG em vez de exibir na tela. Se é desejável tanto a exibição da imagem quanto o salvamento no arquivo, o argumento \mintinline{text}{--force-show} ou \mintinline{text}{-f} pode ser usado. Também existe a opção \mintinline{bash}{--grayscale} ou \mintinline{bash}{-g} que faz o processamento em escala de cinza.
-
-    As outras opções são referentes à técnica de pontilhado. A flag \mintinline{bash}{--varredura} ou \mintinline{bash}{-v} controla a forma de varrredura na imagem, como descrito na \cref{sec:varredura}. A distribuição de erros aplicada pode ser modificada com \mintinline{bash}{--destribuicao} ou \mintinline{bash}{-d} e aceita o nome de qualquer um dos idealizadores da distribuição.
-
-    Por exemplo, o comando abaixo apresenta a \cref{fig:execucao} em uma nova janela gráfica.
+    Por exemplo, o comando abaixo apresenta executa o método de Bernsen com vizinhança de raio 6 em uma imagem \mintinline{bash}{entrada.pgm}, salvando depois o resultado em \mintinline{bash}{saida.png}.
 
     \begin{minted}{bash}
-        $ python3 main.py imagens/baboon.png -g -d ninke
+        $ python3 limiarizacao entrada.pgm -o saida.png bernsen -r 6
     \end{minted}
-
-\subsection{A biblioteca Numba}
-
-    A ferramenta foi desenvolvida com requerimento mínimo sendo apenas o NumPy. No entanto, se presente, a biblioteca Numba causa um grande diferencial no tempo de execução das técnicas de pontilhado (cerca de trinta vezes mais rápido na máquina de desenvolvimento). Por isso, a biblioteca é fortemente recomendada na execução do código.
