@@ -45,4 +45,4 @@ plt.ylabel('Número de Pixels')
 if output is None:
     plt.show()
 else:
-    plt.savefig(output)
+    plt.savefig(output, bbox_inches='tight', pad_inches=0)
