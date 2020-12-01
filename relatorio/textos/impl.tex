@@ -10,12 +10,11 @@
 
     Todos os métodos locais foram implementados em C, como discutido anteriormente, para uso com a função \mintinline{python3}{scipy.ndimage.generic_filter}. As bordas da imagem são extendidas com a opção \mintinline{python3}{"mirror"}, que reflete os pixels mais próximos da fronteira, mas sem repetir o pixel exatamente na fronteira.
 
+\begingroup
 \subsection{Imagens Base} \label{sec:imgbase}
+\input{figuras/base}
 
-\begin{figure}[H]
-    \centering
-    \input{figuras/base}
+\histograma{baboon}
 
-    \caption{Figuras utilzadas para comparação das técnicas de limiarização.}
-    \label{fig:imgbase}
-\end{figure}
+\endgroup
+
