@@ -4,9 +4,9 @@
 
     A limiarização aplicada aqui se baseia em encontrar um limiar $T$, escolhendo cada pixel como objeto se o valor dele for maior que $T$ ou como fundo, no caso contrário. Nesse trabalho, os pixels do objeto foram coloridos em preto e o fundo em branco.
 
-    Os métodos globais em geral escolhem um mesmo limiar $T$ para toda a imagem, mas o método global implementado aqui escolhe, por padrão, $T$ como o valor médio na imagem. Isso pode ser alterado com a \textit{flag} \mintinline{bash}{-T} na linha de comando, mudando o limiar global para o valor dado.
+    Os métodos globais em geral escolhem um mesmo limiar $T$ para toda a imagem, mas o método \mintinline{bash}{global} implementado aqui escolhe, por padrão, $T$ como o valor médio na imagem. Isso pode ser alterado com a \textit{flag} \mintinline{bash}{-T} na linha de comando, mudando o limiar global para o valor dado.
 
-    Por outro lado, os métodos locais escolhem um limiar $T(x, y)$ para cada pixel $(x, y)$ aplicando uma função na vizinhança do pixel. Essa vizinhança é escolhida a partir de um raio $r = 5$, que pode ser alterado na linha de comando (opção \mintinline{bash}{-r}). Existe a opção também de alterar a medida de distância, usando vizinhança-4, com a \textit{flag} \mintinline{bash}{-v4}, em vez da vizinhança-8, que é o padrão.
+    Por outro lado, os métodos locais escolhem um limiar $T(x, y)$ para cada pixel $(x, y)$ aplicando uma função na vizinhança do pixel. Essa vizinhança é escolhida a partir de um raio $r = 5$, que pode ser alterado na linha de comando (opção \mintinline{bash}{-r}). Existe a opção também de alterar a medida de distância, usando vizinhança-4, com a \textit{flag} \mintinline{bash}{-v4}, em vez da vizinhança-8, que é o padrão. Para o método \mintinline{bash}{phansalkar}, foi necessário também normalizar a imagem para o intervalo $[0, 1]$ antes do processamento.
 
     Todos os métodos locais foram implementados em C, como discutido anteriormente, para uso com a função \mintinline{python3}{scipy.ndimage.generic_filter}. As bordas da imagem são extendidas com a opção \mintinline{python3}{"mirror"}, que reflete os pixels mais próximos da fronteira, mas sem repetir o pixel exatamente na fronteira.
 
