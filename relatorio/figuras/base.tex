@@ -1,42 +1,18 @@
-\begin{subfigure}{0.33\textwidth}
-    \centering
-    \includegraphics[width=4.4cm]{base/baboon.png}
-    \caption{\texttt{imagens/baboon.pgm}}
-    \label{fig:baboon}
-\end{subfigure}%
-\begin{subfigure}{0.33\textwidth}
-    \centering
-    \includegraphics[width=4.4cm]{base/peppers.png}
-    \caption{\texttt{imagens/peppers.pgm}}
-    \label{fig:peppers}
-\end{subfigure}%
-\begin{subfigure}{0.33\textwidth}
-    \centering
-    \includegraphics[width=4.4cm]{base/retina.png}
-    \caption{\texttt{imagens/retina.pgm}}
-    \label{fig:retina}
-\end{subfigure}\\[8pt]
-\begin{subfigure}{0.33\textwidth}
-    \centering
-    \includegraphics[width=4.4cm]{base/fiducial.png}
-    \caption{\texttt{imagens/fiducial.pgm}}
-    \label{fig:fiducial}
-\end{subfigure}%
-\begin{subfigure}{0.33\textwidth}
-    \centering
-    \includegraphics[width=4.4cm]{base/monarch.png}
-    \caption{\texttt{imagens/monarch.pgm}}
-    \label{fig:monarch}
-\end{subfigure}%
-\begin{subfigure}{0.33\textwidth}
-    \centering
-    \includegraphics[width=4.4cm]{base/wedge.png}
-    \caption{\texttt{imagens/wedge.pgm}}
-    \label{fig:wedge}
-\end{subfigure}\\[8pt]
-\begin{subfigure}{0.33\textwidth}
-    \centering
-    \includegraphics[width=4.4cm]{base/sonnet.png}
-    \caption{\texttt{imagens/sonnet.pgm}}
-    \label{fig:sonnet}
-\end{subfigure}
+\newcommand{\histograma}[1]{
+    \begin{figure}[H]
+        \centering
+        \begin{subfigure}{0.3\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{base/#1.png}
+            \caption{Imagem.}
+        \end{subfigure}%
+        \begin{subfigure}{0.68\textwidth}
+            \centering
+            \import{../resultados/hist}{#1.pgf}
+            \caption{Histograma.}
+        \end{subfigure}
+
+        \caption{\texttt{imagens/#1.pgm}}
+        \label{fig:base:#1}
+    \end{figure}
+}
