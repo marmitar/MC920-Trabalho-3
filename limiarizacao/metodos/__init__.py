@@ -27,8 +27,8 @@ class MetodoGlobal(Metodo):
             limite = np.mean(img)
 
         # força saída como uint8
-        min, max = np.uint8(0), np.uint8(255)
-        res: Image = np.where(img > limite, max, min)
+        obj, fundo = np.uint8(0), np.uint8(255)
+        res: Image = np.where(img > limite, obj, fundo)
         return res
 
     def add_arg_parser(self, parser: AddSubParser) -> None:
@@ -138,9 +138,7 @@ class MetodoNormalizado(MetodoLocal):
     da limiarização.
     """
     def limiariza(self, img: Image, params: Namespace) -> Image:
-        resultado = super().limiariza(img / 255, params)
-        min, max = np.uint8(0), np.uint8(255)
-        res: Image = np.where(resultado < 1, min, max)
+        res: img = super().limiariza(img / 255, params).astype(np.uint8)
         return res
 
 

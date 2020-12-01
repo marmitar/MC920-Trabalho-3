@@ -11,6 +11,10 @@ typedef struct data {
     double param[4];
 } data_t;
 
+// Cores de separação da imagem
+#define OBJETO   0.0
+#define FUNDO  255.0
+
 
 // Tipo de função que calcula o limiar de uma vizinhança.
 typedef double limiar_fn(const double vizinhanca[], size_t tam, data_t data);
@@ -26,9 +30,9 @@ double limiariza(const double *restrict buffer, size_t buflen, data_t data, limi
 
     // aplica de acordo com uma função de limiar da região.
     if (pixel > limiar(buffer, buflen, data)) {
-        return 255.0;
+        return OBJETO;
     } else {
-        return 0.0;
+        return FUNDO;
     }
 }
 
@@ -108,9 +112,9 @@ double limiar_contraste(const double vizinhanca[], size_t tam) {
 
     // retorna o pixel, em vez do limite
     if (dist_min < dist_max) {
-        return 255.0;
+        return OBJETO;
     } else {
-        return 0.0;
+        return FUNDO;
     }
 }
 extern attribute(pure, nonnull)
