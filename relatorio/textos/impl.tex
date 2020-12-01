@@ -1,0 +1,44 @@
+\section{Implementação} \label{sec:impl}
+
+\subsection{Técnica de Meios-Tons com Difusão de Erro}
+
+    Essa técnica de pontilhado se baseia em alterar cada pixel com escala de 8 bits para escala de 2 bits, levando para o seu nível de intensidade mais próximo. No entanto, ao longo do processo, o erro é calculado em relação ao novo pixel, que é então distribuído na sua vizinhaça, influenciando as aplicações nos pixels seguintes.
+
+    Assim, quando um pixel resulta em valor muito distante do original, seus vizinhos são reduzidos ou incrementados, aumentando a chance de que eles sejam transformados para outro nível. Isso faz com que a vizinhaça mantenha um pouco mais da distribuição local de intensidade, deixando a imagem resultante mais similar à original, considerando o nosso sistema visual.
+
+    A distribuição de erros pode ser feita de várias formas, como pode ser visto na \cref{sec:distribuicoes}.
+
+\subsection{Formas de Varredura} \label{sec:varredura}
+
+    A técnica de pontilhado com distribuição de erros altera a imagem enquanto é aplicada, o que faz com que o caminhos diferentes levam à resultados distintos. Por isso, o pontilhado foi implementado seguindo quatro formas de varredura, apresentadas na \cref{fig:varredura}. Apesar disso, as varreduras que serão mais discutidas aqui serão a unidirecional (\ref{fig:varredura:unidirecional}) e a alternada (\ref{fig:varredura:alternada}).
+
+    % \begin{figure}[H]
+    %     \centering
+    %     \input{figuras/varredura}
+
+    %     \caption{Argumentos válidos para \mintinline{bash}{--varredura} ou \mintinline{bash}{-v}.}
+    %     \label{fig:varredura}
+    % \end{figure}
+
+    Para a varredura alternada, a distribuição é aplicada em duas orientações, normal e invertida horizontalmente, enquanto para as curvas em espiral e de Hilbert a distribuição é considerada em quatro orientações, seguindo as rotações sucessivas de 90\textdegree{} na matriz.
+
+\subsection{Distribuições de Erro} \label{sec:distribuicoes}
+
+    A distribuições são escolhidas na linha de comando pelo nome de um de seus idelizadores ou de todos juntos, separados por "\texttt{\_}". Assim, as seguintes opções são equivalentes:
+
+    \begin{minted}{bash}
+        $ python3 main.py imagens/peppers.png -d jarvis
+        # ou
+        $ python3 main.py imagens/peppers.png -d Judice
+        # ou
+        $ python3 main.py imagens/peppers.png -d JARVIS_judice_Ninke
+    \end{minted}
+
+    As distribuições estão apresentadas na \cref{fig:distribuicoes} abaixo.
+
+    % \begin{figure}[H]
+    %     \centering
+    %     \input{figuras/dists}
+    %     \caption{Distribuições de erro aplicadas neste trabalho.}
+    %     \label{fig:distribuicoes}
+    % \end{figure}
