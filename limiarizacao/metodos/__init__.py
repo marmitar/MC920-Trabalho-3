@@ -138,8 +138,8 @@ class MetodoNormalizado(MetodoLocal):
     da limiarização.
     """
     def limiariza(self, img: Image, params: Namespace) -> Image:
-        res: img = super().limiariza(img / 255, params).astype(np.uint8)
-        return res
+        res = super().limiariza(img / 255, params)
+        return res.astype(np.uint8)
 
 
 """
