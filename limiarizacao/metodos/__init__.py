@@ -117,8 +117,8 @@ class MetodoLocal(Metodo):
         """
         subparser = parser(self.name, self.description)
         # argumentos gerais do método
-        subparser.add_argument('-r', '--raio', metavar='RAIO', type=raio, default=5,
-            help='raio da vizinhança de limiarização (default=5)')
+        subparser.add_argument('-r', '--raio', metavar='RAIO', type=raio, default=10,
+            help='raio da vizinhança de limiarização (default=10)')
         subparser.add_argument('-v4', '--vizinhanca-4', dest='viz4', action='store_true',
             help='usa vizinhança-4 em vez de 8')
 
