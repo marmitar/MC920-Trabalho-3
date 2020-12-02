@@ -1,4 +1,4 @@
-\subsection{Método de Sauvola e Pietaksinen}
+\subsection{Método de Sauvola e Pietikäinen}
 
 Assim como no método de Niblack, esse método se baseia na média e desvio padrão dos pixels da vizinhança, definindo o limiar como $T(x, y) = \mu(x, y) \left[1 + k \left(\frac{\sigma(x, y)}{R} - 1\right)\right]$. Essa fórmula faz com que o método funcione melhor com os anteriores em regiões de iluminação irregular. Por exemplo, a \cref{fig:sauvola:sonnet} consegue reduzir ainda mais o ruído, mas ao mesmo tempo manter mais detalhes do que na \cref{fig:niblack}.
 
