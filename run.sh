@@ -19,13 +19,19 @@ function run {
     echo $1 $3 $(python3 porcentagem.py resultados/$1/$3.png)
 }
 
-# mkdir -p resultados/global
+mkdir -p resultados/global
 # run global retina retina -T 128
 # run global wedge wedge100 -T 100
 # run global wedge wedge110 -T 110
 
 mkdir -p resultados/bernsen
-run bernsen baboon baboon -r 50
-run bernsen peppers peppers -r 50
-run bernsen wedge wedge -r 20
-run bernsen sonnet sonnet -r 20
+# run bernsen baboon baboon -r 50
+# run bernsen peppers peppers -r 50
+# run bernsen wedge wedge -r 20
+# run bernsen sonnet sonnet -r 20
+
+mkdir -p resultados/niblack
+run niblack sonnet sonnet50 -r 50 -k -0.5
+run niblack sonnet sonnet20 -r 20 -k -0.5
+run niblack wedge wedge -r 50 -k -0.3
+run niblack fiducial fiducial -r 50 -k -0.5

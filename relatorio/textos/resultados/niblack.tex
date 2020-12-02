@@ -1,0 +1,16 @@
+\subsection{Método de Niblack}
+
+O limiar desse método é encontrado pela média da vizinhança $\mu(x, y)$, com mais uma parcela $k$ do desvio padrão $\sigma(x, t)$, de forma que $T(x, y) = \mu(x, y) + k \sigma(x, y)$. Isso faz com o que o modelo seja mais robusto para reduzir o ruído, especialmente em regiões de baixa variação de intensidade. Podemos ver isso nas imagens \cref{fig:niblack:wedge} e \cref{fig:niblack:sonnet50}.
+
+Por outro lado, o método pode acabar reduzindo os detalhes, no caso da vizinhança sem muito grande. Isso fica visível na diferença das letras do soneto da \cref{fig:niblack:sonnet50} e da \ref{fig:niblack:sonnet20}. Entretanto, para imagens com detalhes maiores, como a \cref{fig:niblack:fiducial}, o método de Niblack pode funcionar bem.
+
+\begin{figure}[H]
+    \centering
+    \metodo{wedge}{niblack}{}{$r = 50$ e $k = -0.3$}{71}%
+    \metodo{fiducial}{niblack}{}{$r = 50$ e $k = -0.5$}{67}\\[8pt]
+    \metodo{sonnet}{niblack}{50}{$r = 50$ e $k = -0.5$}{86}%
+    \metodo{sonnet}{niblack}{20}{$r = 20$ e $k = -0.5$}{84}
+
+    \caption{Exemplos de aplicação do método \texttt{niblack}.}
+    \label{fig:niblack}
+\end{figure}
