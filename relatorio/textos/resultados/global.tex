@@ -2,10 +2,14 @@
 
 \begin{figure}[H]
     \centering
-    \metodo[wide]{retina}{global/retina.png}{$T = 128$}{15}\\[8pt]
-    \metodo{wedge}{global/wedge100.png}{$T = 100$}{72}%
-    \metodo{wedge}{global/wedge110.png}{$T = 110$}{49}
+    \metodo[wide]{retina}{global}{}{$T = 128$}{15}\\[8pt]
+    \metodo{wedge}{global}{wedge100}{$T = 100$}{72}%
+    \metodo{wedge}{global}{wedge110}{$T = 110$}{49}
 
     \caption{Exemplos de aplicação do método \texttt{global}.}
     \label{fig:global}
 \end{figure}
+
+Esse é o método mais simples, definindo um limiar fixo $T$ para toda a imagem. Ele funciona razoavelmente bem para imagens com iluminação regular, como pode ser visto na \cref{fig:global:retina}.
+
+Por outro lado, figuras com iluminação mais natural ou irregular podem ter uma grande variação da intensidade dos pixels ao longo do objeto. Isso faz com a separação do objeto de forma global seja praticamente impossível, levando a problemas como os das figuras \ref{fig:global:wedge100} e \ref{fig:global:wedge110}.
