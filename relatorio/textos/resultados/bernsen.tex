@@ -1,0 +1,16 @@
+\subsection{Método de Bernsen}
+
+Para o método de Bernsen, o limiar é calculado como a média da menor ($z_\text{min}$) e da maior ($z_\text{máx}$) intensidade na vizinhança de raio $r$, ou seja, $T(x, y) = \left(z_\text{min} + z_\text{máx}\right) / 2$. Esse método funciona melhor com imagens com alta variação de intensidade como as figuras \ref{fig:bernsen:baboon} e \ref{fig:bernsen:peppers}.
+
+Para regiões de baixa variação de intensidade, como acontece nas imagens \texttt{wedge.pgm} e \texttt{sonnet.pgm}, o método de Bernsen gera artefatos inesperados, seguindo o gradiente da imagem. No entanto, o método funciona bem para evidenciar bordas dos objetos, como pode ser visto em \ref{fig:bernsen:wedge} e \ref{fig:bernsen:sonnet}.
+
+\begin{figure}[H]
+    \centering
+    \metodo{baboon}{bernsen}{}{$r = 50$}{57}%
+    \metodo{peppers}{bernsen}{}{$r = 50$}{53}\\[8pt]
+    \metodo{wedge}{bernsen}{}{$r = 20$}{49}%
+    \metodo{sonnet}{bernsen}{}{$r = 20$}{61}
+
+    \caption{Exemplos de aplicação do método \texttt{bernsen}.}
+    \label{fig:bernsen}
+\end{figure}
