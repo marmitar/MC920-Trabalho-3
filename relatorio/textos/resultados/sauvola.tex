@@ -1,0 +1,16 @@
+\subsection{Método de Sauvola e Pietaksinen}
+
+Assim como no método de Niblack, esse método se baseia na média e desvio padrão dos pixels da vizinhança, definindo o limiar como $T(x, y) = \mu(x, y) \left[1 + k \left(\frac{\sigma(x, y)}{R} - 1\right)\right]$. Essa fórmula faz com que o método funcione melhor com os anteriores em regiões de iluminação irregular. Por exemplo, a \cref{fig:sauvola:sonnet} consegue reduzir ainda mais o ruído, mas ao mesmo tempo manter mais detalhes do que na \cref{fig:niblack}.
+
+Apesar disso, o método ainda não consegue separar objetos em imagens rica em detalhes, como a \texttt{monarch.pgm} (\cref{fig:sauvola:monarch}). Em imagens como a \texttt{retina.pgm}, ele consegue remover as manchas que existiam na \cref{fig:global}, mas aumenta o ruído na imagem.
+
+\begin{figure}[H]
+    \centering
+    \metodo{sonnet}{sauvola}{}{$k = 0.08$ e $R = 100$}{93}%
+    \metodo{retina}{sauvola}{}{$k = -0.5$ e $R = 100$}{7}\\[8pt]
+    \metodo{wedge}{sauvola}{}{$k = 0.08$ e $R = 200$}{98}%
+    \metodo{monarch}{sauvola}{}{$k = 0.5$ e $R = 300$}{94}
+
+    \caption{Exemplos de aplicação do método \texttt{sauvola} com $r = 10$.}
+    \label{fig:sauvola}
+\end{figure}
