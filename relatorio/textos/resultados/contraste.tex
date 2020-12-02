@@ -1,0 +1,14 @@
+\subsection{Método do Contraste}
+
+\begin{figure}[H]
+    \centering
+    \metodo{baboon}{contraste}{}{$r = 50$}{42}%
+    \metodo{sonnet}{contraste}{}{$r = 20$}{26}
+
+    \caption{Exemplos de aplicação do método \texttt{contraste}.}
+    \label{fig:contraste}
+\end{figure}
+
+Esse método define objeto como pixels mais próximos do mínimo local do que do máximo, deixando o restante como fundo. Na prática, ele acaba funcionando como o método de Bernsen com o resultado invertido, por isso, o que foi discutido na \cref{sec:bernsen} também vale aqui.
+
+No entanto, note que as porcentagens do \texttt{sonnet.pgm} (figuras \ref{fig:bernsen:sonnet} e \ref{fig:contraste:sonnet}) não soman $100\%$. Isso se deve aos pixels que se encontram exatamente na média da sua vizinhança e acaba sumindo em raios maiores, como da \cref{fig:contraste:baboon}.
