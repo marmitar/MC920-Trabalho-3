@@ -37,7 +37,12 @@ mkdir -p resultados/niblack
 # run niblack fiducial fiducial -r 50 -k -0.5
 
 mkdir -p resultados/sauvola
-run sauvola sonnet sonnet -k 0.08 -R 100
-run sauvola retina retina -k -0.5 -R 100
-run sauvola wedge wedge -k 0.08 -R 200
-run sauvola monarch monarch -k 0.5 -R 300
+# run sauvola sonnet sonnet -k 0.08 -R 100
+# run sauvola retina retina -k -0.5 -R 100
+# run sauvola wedge wedge -k 0.08 -R 200
+# run sauvola monarch monarch -k 0.5 -R 300
+
+mkdir -p resultados/phansalkar
+run phansalkar retina retina -r 5 -k -0.2 -q 0.5 -p 0.2 -R 4
+run phansalkar monarch monarch -r 10 -k 0.9 -q 10 -p 5 -R 0.7
+run phansalkar wedge wedge -r 10 -k 0.1 -p 12 -q 16 -R 0.9
