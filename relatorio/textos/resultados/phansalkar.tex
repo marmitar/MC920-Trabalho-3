@@ -1,6 +1,6 @@
 \subsection{Método de Phansalkar, More e Sabale}
 
-O método desenvolvido por Phansalkar et al teve forte influência do método de Sauvola, apresentado na seção anterior. A principal diferença é um fator exponencial na fórmula, o que faz com que o limiar não caia muito rapidamente em regiões de baixa intensidade. Essa técnica foi pensanda com foco em imagens celulares, com tratamento para cores e usando a intensidade normalizada em $[0, 1]$. Nessa técnica, a fórmula do limiar é dada por:
+O método desenvolvido por Phansalkar et al. teve forte influência do método de Sauvola, apresentado na seção anterior. A principal diferença é um fator exponencial na fórmula, o que faz com que o limiar não caia muito rapidamente em regiões de baixa intensidade. Essa técnica foi pensanda com foco em imagens celulares, com tratamento para cores e usando a intensidade normalizada em $[0, 1]$. Nessa técnica, a fórmula do limiar é dada por:
 \[
     T(x, y) = \mu(x, y) \left[1 + p e^{-q \mu(x, y)} + k \left(\frac{\sigma(x, y)}{R} - 1\right)\right]
 \]
