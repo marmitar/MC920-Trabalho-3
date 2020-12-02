@@ -53,12 +53,17 @@ mkdir -p resultados/phansalkar
 # echo
 
 mkdir -p resultados/contraste
-run contraste baboon baboon -r 50
-run contraste sonnet sonnet -r 20
+# run contraste baboon baboon -r 50
+# run contraste sonnet sonnet -r 20
 echo
 
 mkdir -p resultados/media
-run media fiducial fiducial -r 50
-run media wedge wedge -r 50
-run media retina retina -r 30
+# run media fiducial fiducial -r 50
+# run media wedge wedge -r 50
+# run media retina retina -r 30
+echo
+
+mkdir -p resultados/mediana
+run mediana wedge wedge -r 50
+run mediana peppers peppers -r 60
 echo

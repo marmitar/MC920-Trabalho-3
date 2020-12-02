@@ -1,0 +1,14 @@
+\section{Método da Mediana}
+
+O último método seleciona o limiar como a mediana da vizinhança. Isso faz com que a probabilidade do pixel de ser maior ou menor que o limiar fique em torno de $50\%$, gerando muito ruído na imagem. Podemos ver esse efeito em objetos simples, de apenas um cor, como na \cref{fig:mediana:wedge}.
+
+Em objetos detalhados (\cref{fig:mediana:peppers}), a técina acaba mantendo o aspecto da figura original, em vez de enfatizar os objetos da figura.
+
+\begin{figure}[H]
+    \centering
+    \metodo{wedge}{mediana}{}{$r = 50$}{42}%
+    \metodo{peppers}{mediana}{}{$r = 60$}{50}
+
+    \caption{Exemplos de aplicação do método \texttt{mediana}.}
+    \label{fig:mediana}
+\end{figure}
