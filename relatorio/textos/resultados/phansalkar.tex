@@ -5,6 +5,8 @@ O método desenvolvido por Phansalkar et al teve forte influência do método de
     T(x, y) = \mu(x, y) \left[1 + p e^{-q \mu(x, y)} + k \left(\frac{\sigma(x, y)}{R} - 1\right)\right]
 \]
 
+Podemos ver que o método consegue reduzir a força da borda da retina na \cref{fig:phansalkar:retina}, mas mantendo os vasos sanguíneos. Além disso, na \texttt{monarch.pgm}, a borboleta consegue ser mantida removendo ainda boa parte da folhagem, mas alguns detalhes são perdido. Esse método consegue também começar a marcar o centro do objeto na \texttt{wedge.pgm} (\cref{fig:phansalkar:wedge}).
+
 \begin{figure}[H]
     \centering
     \metodo[wide]{retina}{phansalkar}{}{$r = 5$, $k = 0.2$, $R = 4$, $p = 0.2$ e $q = 0.5$}{5}\\[8pt]
@@ -13,6 +15,5 @@ O método desenvolvido por Phansalkar et al teve forte influência do método de
 
     \caption{Exemplos de aplicação do método \texttt{phansalkar}.}
     \label{fig:phansalkar}
+    \vskip-1.2em
 \end{figure}
-
-Podemos ver que o método consegue reduzir a força da borda da retina na \cref{fig:phansalkar:retina}, mas mantendo os vasos sanguíneos. Além disso, na \texttt{monarch.pgm}, a borboleta consegue ser mantida removendo ainda boa parte da folhagem, mas alguns detalhes são perdido. Esse método consegue também começar a marcar o centro do objeto na \texttt{wedge.pgm} (\cref{fig:phansalkar:wedge}).

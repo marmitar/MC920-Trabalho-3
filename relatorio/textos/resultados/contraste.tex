@@ -3,10 +3,12 @@
 \begin{figure}[H]
     \centering
     \metodo{baboon}{contraste}{}{$r = 50$}{42}%
+    \renewcommand{\figratio}{0.7}%
     \metodo{sonnet}{contraste}{}{$r = 20$}{26}
 
     \caption{Exemplos de aplicação do método \texttt{contraste}.}
     \label{fig:contraste}
+    \vskip-1em
 \end{figure}
 
 Esse método define objeto como pixels mais próximos do mínimo local do que do máximo, deixando o restante como fundo. Na prática, ele acaba funcionando como o método de Bernsen com o resultado invertido, por isso, o que foi discutido na \cref{sec:bernsen} também vale aqui.

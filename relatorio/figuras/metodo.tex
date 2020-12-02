@@ -1,15 +1,17 @@
+\newlength{\figwidth}
+\newcommand{\figratio}{0.9}
 \newcommand{\metodo}[6][]{%
     \ifblank{#1}{%
         \begin{subfigure}{0.45\textwidth}
-            \centering
-            \includegraphics[width=0.9\textwidth]{#3/#2#4.png}
+            \centering\setlength{\figwidth}{\figratio\textwidth}
+            \includegraphics[width=\figwidth]{#3/#2#4.png}
             \caption{~\texttt{#2.pgm} com #5.\\ $#6\%$ de pixels pretos.}
             \label{fig:#3:#2#4}
         \end{subfigure}%
     }{%
         \begin{subfigure}{0.9\textwidth}
-            \centering
-            \includegraphics[width=0.45\textwidth]{#3/#2#4.png}
+            \centering\setlength{\figwidth}{\figratio\textwidth}
+            \includegraphics[width=0.5\figwidth]{#3/#2#4.png}
             \caption{~\texttt{#2.pgm} com #5. $#6\%$ de pixels pretos.}
             \label{fig:#3:#2#4}
         \end{subfigure}%

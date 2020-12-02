@@ -1,0 +1,15 @@
+\section{Método da Média}
+
+O método da média define o limiar apenas como a média da vizinhança, isto é, $T(x, y) = \mu(x, y)$. Isso funciona razoavelmente bem para imagens onde o objeto tem apenas uma cor, como é caso das figuras \ref{fig:media:fiducial} e \ref{fig:media:wedge}.
+
+No entanto, imagens pequenas como \texttt{retina.pgm}, onde o raio não pode ser muito grande, o método acaba deixando resultados pouco interessantes.
+
+\begin{figure}[H]
+    \centering
+    \metodo{fiducial}{media}{}{$r = 50$}{64}%
+    \metodo{wedge}{media}{}{$r = 50$}{52}\\[8pt]
+    \metodo[wide]{retina}{media}{}{$r = 30$}{43}
+
+    \caption{Exemplos de aplicação do método \texttt{media}.}
+    \label{fig:media}
+\end{figure}

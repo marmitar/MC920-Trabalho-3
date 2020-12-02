@@ -56,3 +56,9 @@ mkdir -p resultados/contraste
 run contraste baboon baboon -r 50
 run contraste sonnet sonnet -r 20
 echo
+
+mkdir -p resultados/media
+run media fiducial fiducial -r 50
+run media wedge wedge -r 50
+run media retina retina -r 30
+echo
