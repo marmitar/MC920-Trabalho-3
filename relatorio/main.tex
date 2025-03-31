@@ -5,6 +5,8 @@
 \usepackage{enumitem}
 \graphicspath{{../resultados/}}
 
+\def\mathdefault#1{#1}
+\everymath=\expandafter{\the\everymath\displaystyle}
 
 % pacotes para importar código
 \usepackage{caption, booktabs}
@@ -73,8 +75,6 @@
 \newcommand*{\Scale}[2][4]{\scalebox{#1}{\ensuremath{#2}}}%
 
 \newcommand{\red}[1]{\textcolor{red}{\textbf{#1}}}
-
-\date{1 de dezembro de 2020}
 
 \begin{document}
 
